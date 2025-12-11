@@ -544,11 +544,11 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "348315d5-bd1a-4626-b540-6d3f1b6c43cf",
-                    "path": "<Keyboard>/space",
+                    "id": "384e4888-559c-4af4-92c1-0bda82ffa0b3",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false

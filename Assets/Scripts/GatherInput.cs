@@ -4,10 +4,11 @@ using UnityEngine.InputSystem;
 public class GatherInput : MonoBehaviour
 {
     private Controls controls;
-    [SerializeField] private float _valueX;
 
-    public float valueX { get => _valueX; }
-
+    [field: SerializeField]
+    public float valueX { get; private set; }
+    [SerializeField] private bool _IsJumping;
+    public bool IsJumping { get => _IsJumping; set => _IsJumping = value;}
     private void Awake()
     {
         controls = new Controls();
@@ -17,23 +18,38 @@ public class GatherInput : MonoBehaviour
     {
         controls.PlayerV2.Move.performed += StartMove;
         controls.PlayerV2.Move.canceled += StopMove;
+        controls.PlayerV2.Jump.performed += StartJump;
+        controls.PlayerV2.Jump.canceled += StopJump;
         controls.PlayerV2.Enable();
     }
 
-    private void OnDisable()
-    {
-        controls.PlayerV2.Move.performed -= StartMove;
-        controls.PlayerV2.Move.canceled -= StopMove;
-        controls.PlayerV2.Disable();
-    }
+   
 
     private void StartMove(InputAction.CallbackContext ctx)
     {
-        _valueX = ctx.ReadValue<float>();
+        valueX = ctx.ReadValue<float>();
     }
 
     private void StopMove(InputAction.CallbackContext ctx)
     {
-        _valueX = 0;
+        valueX = 0;
+    }
+
+      private void StartJump(InputAction.CallbackContext ctx)
+    {
+        valueX = ctx.ReadValue<float>();
+    }
+
+    private void StopJump(InputAction.CallbackContext ctx)
+    {
+        valueX = 0;
+    }
+     private void OnDisable()
+    {
+        controls.PlayerV2.Move.performed -= StartMove;
+        controls.PlayerV2.Move.canceled -= StopMove;
+        controls.PlayerV2.Jump.performed += StartJump;
+        controls.PlayerV2.Jump.canceled += StopJump;
+        controls.PlayerV2.Disable();
     }
 }
